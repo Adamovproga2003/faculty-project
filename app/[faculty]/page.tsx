@@ -9,7 +9,7 @@ type Props = {
 	}
 }
 
-const Search: FC<Props> = props => {
+export default function Page({ params }: { params: { faculty: string } }) {
 	return (
 		<main className='h-full p-24 max-[1024px]:p-20 max-[768px]:p-16 max-[640px]:p-12'>
 			<div className='grid grid-cols-2 gap-8 max-[768px]:grid-cols-1'>
@@ -21,7 +21,7 @@ const Search: FC<Props> = props => {
 						<SearchTeacher />
 					</div>
 					<div className='bg-white text-[#131C2E] overflow-y-auto h-[400px]'>
-						<List params={props.params.faculty} byTeachers={true} />
+						<List params={params.faculty} byTeachers={true} />
 					</div>
 				</div>
 				<div className='grid gap-8'>
@@ -32,7 +32,7 @@ const Search: FC<Props> = props => {
 						<SearchGroup />
 					</div>
 					<div className='bg-white text-[#131C2E] overflow-y-auto h-[400px]'>
-						<List params={props.params.faculty} byTeachers={false} />
+						<List params={params.faculty} byTeachers={false} />
 					</div>
 				</div>
 			</div>
@@ -40,25 +40,19 @@ const Search: FC<Props> = props => {
 	)
 }
 
-export default Search
-
-export async function generateStaticParams() {
-	const FACULTIES = [
-		'fbme',
-		'ipp',
-		'fl',
-		'fel',
-		'its',
-		'ipt',
-		'imi',
-		'fbt',
-		'fsl',
-		'fam',
-		'tef',
-		'imz',
+export function generateStaticParams() {
+	return [
+		{ faculty: 'fbme' },
+		{ faculty: 'ipp' },
+		{ faculty: 'fl' },
+		{ faculty: 'fel' },
+		{ faculty: 'its' },
+		{ faculty: 'ipt' },
+		{ faculty: 'imi' },
+		{ faculty: 'fbt' },
+		{ faculty: 'fsl' },
+		{ faculty: 'fam' },
+		{ faculty: 'tef' },
+		{ faculty: 'imz' },
 	]
-
-	return FACULTIES.map(name => ({
-		faculty: name,
-	}))
 }
