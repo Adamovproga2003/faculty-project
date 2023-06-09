@@ -59,8 +59,6 @@ export async function generateStaticParams() {
 	]
 
 	return FACULTIES.map(name => ({
-		params: {
-			faculty: name,
-		},
+		faculty: name,
 	}))
 }
