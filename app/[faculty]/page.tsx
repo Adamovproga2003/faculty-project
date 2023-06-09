@@ -41,3 +41,24 @@ const Search: FC<Props> = props => {
 }
 
 export default Search
+
+export async function generateStaticParams() {
+	const FACULTIES = [
+		'fbme',
+		'ipp',
+		'fl',
+		'fel',
+		'its',
+		'ipt',
+		'imi',
+		'fbt',
+		'fsl',
+		'fam',
+		'tef',
+		'imz',
+	]
+
+	return FACULTIES.map(name => ({
+		params: name,
+	}))
+}
