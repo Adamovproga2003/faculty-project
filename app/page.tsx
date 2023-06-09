@@ -28,7 +28,7 @@ export default function Home() {
                         max-[640px]:py-2'>
 						<Link
 							className='w-full h-full rounded-2xl flex justify-center items-center'
-							href={abr}>
+							href={`/${abr}`}>
 							{facultyName}
 						</Link>
 					</div>
