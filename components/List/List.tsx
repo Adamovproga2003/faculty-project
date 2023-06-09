@@ -33,20 +33,23 @@ async function getData(params: string, byTeachers = false) {
 }
 
 const ListServer: FC<Props> = ({ params, byTeachers }) => {
-	const data = use(getData(params, byTeachers))
-	const formattedData = byTeachers
-		? data.teachers.slice(1)
-		: data.groups.slice(1)
+	try {
+		const data = use(getData(params, byTeachers))
+		const formattedData = byTeachers
+			? data.teachers.slice(1)
+			: data.groups.slice(1)
+		if (formattedData.length === 0) {
+			return (
+				<div className='text-lg p-4 max-[1024px]:p-3 max-[768px]:p-2 max-[640px]:p-1 h-full flex justify-center items-center'>
+					Поки що немає даних
+				</div>
+			)
+		}
 
-	if (formattedData.length === 0) {
-		return (
-			<div className='text-lg p-4 max-[1024px]:p-3 max-[768px]:p-2 max-[640px]:p-1 h-full flex justify-center items-center'>
-				Поки що немає даних
-			</div>
-		)
+		return <ListClient data={formattedData} byTeachers={byTeachers} />
+	} catch (err) {
+		return <div>Помилка при компіляції</div>
 	}
-
-	return <ListClient data={formattedData} byTeachers={byTeachers} />
 }
 
 export default ListServer
