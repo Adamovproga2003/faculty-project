@@ -1,6 +1,7 @@
 import { useSearchTeachers } from '@/context/searchTeacherContext'
 import { FC, use } from 'react'
 import ListClient from './ListClient'
+import axios from 'axios'
 
 export type Teacher = {
 	id: number
@@ -20,16 +21,21 @@ type Props = {
 }
 
 async function getData(params: string, byTeachers = false) {
-	const res = await fetch(
-		`http://185.206.213.102:8000/${
-			byTeachers ? 'all_teachers' : 'all_groups'
-		}/${params}`
-	)
-	if (!res.ok) {
-		return {}
+	const res = await axios
+		.get(
+			`http://185.206.213.102:8000/${
+				byTeachers ? 'all_teachers' : 'all_groups'
+			}/${params}`
+		)
+		.then(response => {
+			return response
+		})
+
+	if (res.status !== 200) {
+		return []
 	}
 
-	return res.json()
+	return res.data
 }
 
 const ListServer: FC<Props> = ({ params, byTeachers }) => {
