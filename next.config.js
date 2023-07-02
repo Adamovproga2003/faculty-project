@@ -2,7 +2,7 @@
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
-	output: "export",
+	// output: "export",
 	reactStrictMode: true,
 	// Add basePath
 	basePath: "/faculty-project",
