@@ -39,17 +39,3 @@ export default function Page({ params }: Props) {
 		</main>
 	)
 }
-
-export function generateStaticParams() {
-	return [
-		{ faculty: "fbme" },
-		{ faculty: "ipp" },
-		{ faculty: "fel" },
-		{ faculty: "its" },
-		{ faculty: "ipt" },
-		{ faculty: "fbt" },
-		{ faculty: "fsl" },
-		{ faculty: "tef" },
-		{ faculty: "imz" },
-	]
-}

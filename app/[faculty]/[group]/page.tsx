@@ -33,24 +33,18 @@ export default function Page({ params }: Props) {
 	)
 }
 
-export function generateStaticParams() {
-	const faculties = [
-		"fbme",
-		"ipp",
-		"fel",
-		"its",
-		"ipt",
-		"fbt",
-		"fsl",
-		"tef",
-		"imz",
-	]
+export async function generateStaticParams({
+	params: { faculty },
+}: {
+	params: { faculty: string }
+}) {
+	const data = await fetch(
+		`http://185.206.213.102:8000/all_groups/${faculty}/`
+	).then(res => res.json())
 
-	return faculties.map(async faculty => {
-		const data = await fetch(
-			`http://185.206.213.102:8000/all_groups/${faculty}/`
-		).then(res => res.json())
-		const groups = data.groups.slice(1).map((g: any) => g.name)
-		return { faculty, group: groups }
-	})
+	const groups = data.groups.slice(1).map((g: any) => g.name)
+
+	return groups.map((g: any) => ({
+		group: g,
+	}))
 }
