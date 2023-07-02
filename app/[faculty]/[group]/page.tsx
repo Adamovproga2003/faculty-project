@@ -11,7 +11,7 @@ type Props = {
 }
 
 export default function Page({ params }: Props) {
-	console.log(params)
+	console.log("Params", params)
 	return (
 		<main className="h-full p-24 max-[1024px]:p-20 max-[768px]:p-16 max-[640px]:p-12">
 			<div className="grid gap-8">

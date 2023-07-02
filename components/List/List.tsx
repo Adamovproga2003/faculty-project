@@ -35,17 +35,19 @@ async function getData(
 		.then(response => {
 			return response
 		})
+		.catch(e => console.error(e.message))
 
-	if (res.status !== 200) {
-		return []
-	}
-
-	return res.data
+	return res?.data || []
 }
 
 const ListServer: FC<Props> = ({ faculty, group, byTeachers }) => {
 	const data = use(getData(faculty, group, byTeachers))
-	if (data.length === 0) return <div>Помилка при компіляції</div>
+	if (data.length === 0)
+		return (
+			<div className="text-lg p-4 max-[1024px]:p-3 max-[768px]:p-2 max-[640px]:p-1 h-full flex justify-center items-center">
+				Помилка при компіляції
+			</div>
+		)
 
 	const formattedData = byTeachers
 		? data.teachers.slice(1)
