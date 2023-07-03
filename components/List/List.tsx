@@ -19,6 +19,7 @@ type Props = {
 	faculty: string
 	group?: string
 	byTeachers: boolean
+	isShowType?: boolean
 }
 
 async function getData(
@@ -30,7 +31,8 @@ async function getData(
 		.get(
 			`http://185.206.213.102:8000/${
 				!group ? (byTeachers ? "all_teachers" : "all_groups") : "group"
-			}/${faculty}${group ? `/${group}` : ""}`
+			}/${faculty}${group ? `/${decodeURI(group)}` : ""}`,
+			{ withCredentials: true }
 		)
 		.then(response => {
 			return response
@@ -40,7 +42,12 @@ async function getData(
 	return res?.data || []
 }
 
-const ListServer: FC<Props> = ({ faculty, group, byTeachers }) => {
+const ListServer: FC<Props> = ({
+	faculty,
+	group,
+	byTeachers,
+	isShowType = true,
+}) => {
 	const data = use(getData(faculty, group, byTeachers))
 	if (data.length === 0)
 		return (
@@ -65,6 +72,7 @@ const ListServer: FC<Props> = ({ faculty, group, byTeachers }) => {
 			faculty={faculty}
 			data={formattedData}
 			byTeachers={byTeachers}
+			isShowType={isShowType}
 		/>
 	)
 }
