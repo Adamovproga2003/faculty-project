@@ -5,10 +5,13 @@ import { Groups, Teacher } from "./List"
 import { useSearchGroups } from "@/context/searchGroupContext"
 import Link from "next/link"
 
+// TODO: отображать название факультета и группы при мобильной версии
+
 type Props = {
 	data: Teacher[] | Groups[] | []
 	byTeachers: boolean
 	faculty: string
+	isShowType: boolean
 }
 
 const validTypeNames = {
@@ -17,7 +20,7 @@ const validTypeNames = {
 	both: "лектор & практик",
 }
 
-const ListClient: FC<Props> = ({ data, byTeachers, faculty }) => {
+const ListClient: FC<Props> = ({ data, byTeachers, faculty, isShowType }) => {
 	const { searchValue: searchTeacher } = useSearchTeachers()
 	const { searchValue: searchGroup } = useSearchGroups()
 	const formatValue = byTeachers
@@ -37,16 +40,19 @@ const ListClient: FC<Props> = ({ data, byTeachers, faculty }) => {
 						(item as Teacher).full_name.startsWith(formatValue)
 					) {
 						return (
-							<div
-								key={(item as Teacher).full_name + idx}
-								className="p-4 max-[1024px]:p-3 max-[768px]:p-2 max-[640px]:p-1 cursor-pointer
-						hover:bg-indigo-600 group flex justify-between items-center">
-								<h1 className="text-lg group-hover:text-white">
-									{(item as Teacher).full_name}
-								</h1>
-								<i className="text-slate-400 group-hover:text-white text-sm">
-									{validTypeNames[(item as Teacher).type]}
-								</i>
+							<div key={(item as Teacher).full_name + idx}>
+								<div
+									className="p-4 max-[1280px]:px-2 max-[1280px]:py-2  cursor-pointer
+						hover:bg-indigo-600 group grid grid-cols-[1fr_auto] max-[1280px]:grid-cols-1 items-center gap-x-2">
+									<h1 className="text-lg group-hover:text-white max-[390px]:text-base">
+										{(item as Teacher).full_name}
+									</h1>
+									{isShowType && (
+										<i className="text-slate-400 group-hover:text-white text-sm text-right max-[1280px]:text-left max-[390px]:text-xs">
+											{validTypeNames[(item as Teacher).type]}
+										</i>
+									)}
+								</div>
 							</div>
 						)
 					}
@@ -55,10 +61,12 @@ const ListClient: FC<Props> = ({ data, byTeachers, faculty }) => {
 						return (
 							<div
 								key={(item as Groups).name + idx}
-								className="p-4 max-[1024px]:p-3 max-[768px]:p-2 max-[640px]:p-1 cursor-pointer
-						hover:bg-indigo-600 hover:text-white">
+								className="p-4 max-[1280px]:px-2 max-[1280px]:py-2 cursor-pointer
+						hover:bg-indigo-600 hover:text-white grid grid-cols-[1fr_auto] max-[1280px]:grid-cols-1 items-center gap-x-2">
 								<Link href={`/${faculty}/${(item as Groups).name}`}>
-									<h1 className="text-lg">{(item as Groups).name}</h1>
+									<h1 className="text-lg max-[390px]:text-base">
+										{(item as Groups).name}
+									</h1>
 								</Link>
 							</div>
 						)
