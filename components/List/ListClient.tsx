@@ -5,8 +5,6 @@ import { Groups, Teacher } from "./List"
 import { useSearchGroups } from "@/context/searchGroupContext"
 import Link from "next/link"
 
-// TODO: отображать название факультета и группы при мобильной версии
-
 type Props = {
 	data: Teacher[] | Groups[] | []
 	byTeachers: boolean
