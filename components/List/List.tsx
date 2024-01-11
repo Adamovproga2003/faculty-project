@@ -29,12 +29,13 @@ async function getData(
 ) {
 	const res = await axios
 		.get(
-			`http://185.206.213.102:8000/${
+			`http://45.87.3.13:8000/${
 				!group ? (byTeachers ? "all_teachers" : "all_groups") : "group"
 			}/${faculty}${group ? `/${decodeURI(group)}` : ""}`,
 			{ withCredentials: true }
 		)
 		.then(response => {
+			console.log("response", response)
 			return response
 		})
 		.catch(e => console.error(e.message))
